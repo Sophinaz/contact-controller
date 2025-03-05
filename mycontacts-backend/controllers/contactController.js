@@ -4,7 +4,7 @@ const { default: mongoose } = require("mongoose");
 const constants = require("../constants");
 
 const getContacts = asyncHandler(async (req, res) => {
-  const contacts = await Contact.find({ user_id: req.user.id});
+  const contacts = await Contact.find({ user_id: req.user.id });
   res.status(200).json(contacts);
 });
 
@@ -47,30 +47,32 @@ const updateContact = asyncHandler(async (req, res) => {
   }
 
   if (contact.user_id.toString() !== req.user.id.toString()) {
-    res.status(403)
-    throw new Error("Unauthorized user")
+    res.status(403);
+    throw new Error("Unauthorized user");
   }
 
-  const updatedContact = await Contact.findByIdAndUpdate(contact_id, req.body, { new: true });
+  const updatedContact = await Contact.findByIdAndUpdate(contact_id, req.body, {
+    new: true,
+  });
 
   res.status(200).json(updatedContact);
 });
 
 const deleteContact = asyncHandler(async (req, res) => {
-  const contact_id = req.params.id
-  const contact = await Contact.findById(contact_id)
+  const contact_id = req.params.id;
+  const contact = await Contact.findById(contact_id);
 
   if (!contact) {
-    res.status(404)
-    throw new Error("Contact to be deleted not found")
+    res.status(404);
+    throw new Error("Contact to be deleted not found");
   }
 
   if (contact.user_id.toString() !== req.user.id.toString()) {
-    res.status(403)
-    throw new Error("Unauthorized user")
+    res.status(403);
+    throw new Error("Unauthorized user");
   }
 
-  const deletedUser = await Contact.findByIdAndDelete(contact_id)
+  const deletedUser = await Contact.findByIdAndDelete(contact_id);
 
   res.status(200).json(deletedUser);
 });

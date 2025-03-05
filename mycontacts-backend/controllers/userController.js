@@ -10,7 +10,7 @@ const getusers = asyncHandler(async (req, res) => {
 
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
-  if ((!username || !email || !password)) {
+  if (!username || !email || !password) {
     res.status(400);
     throw new Error("All fields are required");
   }
@@ -66,7 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const currentUser = asyncHandler(async (req, res) => {
-  res.json(req.user)
+  res.json(req.user);
 });
 
 module.exports = { registerUser, loginUser, currentUser, getusers };
