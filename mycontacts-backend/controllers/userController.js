@@ -10,7 +10,7 @@ const getusers = asyncHandler(async (req, res) => {
 
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
-  if ((!username || !email, !password)) {
+  if ((!username || !email || !password)) {
     res.status(400);
     throw new Error("All fields are required");
   }
@@ -55,7 +55,7 @@ const loginUser = asyncHandler(async (req, res) => {
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
-      { expiresIn: "1m" }
+      { expiresIn: "15m" }
     );
 
     res.status(200).json({ accessToken });

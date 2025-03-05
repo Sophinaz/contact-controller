@@ -1,7 +1,10 @@
 const express = require("express")
+const validateToken = require("../middleware/validateToken")
 
 const router = express.Router()
 const { getContacts, postContact, getContact, updateContact, deleteContact } = require("../controllers/contactController")
+
+router.use(validateToken)
 
 router.route("/").get(getContacts);
 
